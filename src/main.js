@@ -59,7 +59,7 @@ function createBotWindow (codeUrl) {
     var dirname = __dirname.replace(/\\/g,'/')
 
     // Insert 'passStats.js', to communicate for the stats
-    insertScriptToWindow(botWindow, `${dirname}/passStats.js`)
+    insertScriptToWindow(botWindow, `file://${dirname}/passStats.js`)
 
     botWindow.webContents.executeJavaScript(`window.botUrl = '${codeUrl}'`)
   });
@@ -99,11 +99,6 @@ app.on('activate', function () {
   }
 })
 
-
-ipcMain.on('submit-code', (event, arg) => {
-  newBotWindow = createBotWindow(arg.codeUrl)
-})
-
 ipcMain.on('getAllStats', (event) => {
   var allStats = new Array()
   var originalEvent = event
@@ -116,4 +111,8 @@ ipcMain.on('getAllStats', (event) => {
   allBots.forEach(function (item, index, array) {
     item.webContents.send('getStats')
   })
+})
+
+ipcMain.on('submit-code', (event, arg) => {
+  newBotWindow = createBotWindow(arg.codeUrl)
 })
