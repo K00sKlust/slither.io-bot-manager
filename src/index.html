@@ -1,84 +1,88 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Slither.io botManager</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>Slither.io botManager</title>
 
-  <!-- http://stackoverflow.com/a/37480521 -->
-  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <!-- http://stackoverflow.com/a/37480521 -->
+        <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 
-  <script>if (window.module) module = window.module;</script>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <!-- Load jQuery, using v2 because of Bootstrap -->
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+        <!-- Bootstrap JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-</head>
-
-
-<body>
-    <div class="container container-fluid">
-        <div class="page-header">
-            <h1>Slither.io botManager</h1>
-        </div>
+        <script>if (window.module) module = window.module;</script>
+    </head>
 
 
-        <div class="row">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Add a variable to check for
+    <body>
+        <div class="container container-fluid">
+            <div class="page-header">
+                <h1>Slither.io botManager</h1>
+            </div>
 
-                    <div class="input-group">
-                        <input class="form-control" id="add-variable-text" placeholder="bot.isBotRunning" type="text"></input>
-                        <span class="input-group-btn">
-                          <button class="btn btn-default" id="add-variable" type="button">Add</button>
-                        </span>
+
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Add a variable to check for
+
+                        <div class="input-group">
+                            <input class="form-control" id="add-variable-text" placeholder="bot.isBotRunning" type="text"></input>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" id="add-variable" type="button">Add</button>
+                            </span>
+                        </div>
                     </div>
+                    <!-- Table -->
+
+
+                    <table class="table" id="table-bots">
+                        <thead>
+                            <tr id="th-variables">
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
-                <!-- Table -->
-
-
-                <table class="table" id="table-bots">
-                    <thead>
-                        <tr id="th-variables">
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                    </tbody>
-                </table>
             </div>
-        </div>
 
-        <hr>
+            <hr>
 
 
-        <div class="row">
-            <div class="input-group">
-                <span class="input-group-btn">
-                  <button class="btn btn-default" id="submit-code" type="button">Run</button></span> 
-                  <input class="form-control" id= "code-url" type="text" value="https://rawgit.com/ErmiyaEskandary/Slither.io-bot/master/bot.user.js"></input>
+            <div class="row">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" id="submit-code" type="button">Run</button>
+                    </span>
+                    <input class="form-control" id= "code-url" type="text" value="https://rawgit.com/ErmiyaEskandary/Slither.io-bot/master/bot.user.js"></input>
+                </div>
             </div>
+
+            <br/>
+
+            <div class="row">
+                <button class="btn btn-default" id="update-stats">Update stats</button>
+            </div>
+
+            <hr>
+
+
+            <footer>
+                <p>Tool to test and create multiple instances of <a href=
+                "https://github.com/ErmiyaEskandary/Slither.io-bot">ErmiyaEskandary's Slither.io bot</a>.</p>
+            </footer>
         </div>
 
-        <br/>
+        <script type="text/javascript">
+            require('./renderer.js');
+            const {ipcRenderer} = require('electron');
+        </script>
 
-        <div class="row">
-            <button class="btn btn-default" id="update-stats">Update stats</button>
-        </div>
-
-        <hr>
-
-
-        <footer>
-            <p>Tool to test and create multiple instances of <a href=
-            "https://github.com/ErmiyaEskandary/Slither.io-bot">ErmiyaEskandary's Slither.io bot</a>.</p>
-        </footer>
-    </div>
-
-    <script type="text/javascript">
-      require('./renderer.js');
-      const {ipcRenderer} = require('electron');
-    </script>
-
-</body>
+    </body>
 </html>
