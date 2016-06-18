@@ -99,17 +99,18 @@ app.on('activate', function () {
   }
 })
 
-ipcMain.on('getAllStats', (event) => {
+ipcMain.on('getAllStats', (event, args) => {
   var allStats = new Array()
   var originalEvent = event
   ipcMain.on('replyStats', (event, arg) => {
     allStats.push(arg)
     if (allStats.length === allBots.length) {
+      ipcMain.removeAllListeners(['replyStats'])
       originalEvent.sender.send('replyAllStats', allStats)
     }
   })
   allBots.forEach(function (item, index, array) {
-    item.webContents.send('getStats')
+    item.webContents.send('getStats', args)
   })
 })
 

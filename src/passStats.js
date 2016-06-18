@@ -5,7 +5,12 @@ const {ipcRenderer} = require('electron');
 
 play_btn.btnf.click();
 
-ipcRenderer.on('getStats', (event) => {
-	// Return the variable 'bot'
-	event.sender.send('replyStats', window)
+ipcRenderer.on('getStats', (event, args) => {
+	result = []
+
+	args.forEach(function (item, index, array) {
+    	result.push(eval(item))
+  	})
+
+	event.sender.send('replyStats', result)
 });

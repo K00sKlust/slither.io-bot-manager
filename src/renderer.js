@@ -21,12 +21,12 @@ ipcRenderer.on('replyAllStats', (event, args) => {
         var currentRow = $('#table-bots tbody tr:last-child');
         for (var j = 0; j < window.checkVariables.length; j++) {
             var currentVariable = window.checkVariables[j];
-            currentRow.append($('<td>').text((eval('current.' + currentVariable))));
+            currentRow.append($('<td>').text(current[j]));
         }
     }
 });
 $('#update-stats').click(function() {
-    ipcRenderer.send('getAllStats');
+    ipcRenderer.send('getAllStats', window.checkVariables);
 })
 $('#add-variable').click(function() {
     window.checkVariables.push($('#add-variable-text').val());
