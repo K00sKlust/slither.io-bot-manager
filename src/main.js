@@ -117,7 +117,6 @@ ipcMain.on('getAllStats', (event, args) => {
         return object.stats
       })
       
-      console.log(allBots.indexOf(allReplies[0]))
       originalEvent.sender.send('replyAllStats', allStats)
     }
   })
