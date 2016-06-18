@@ -71,7 +71,7 @@ function createBotWindow (codeUrl) {
     // If the window is closed, remove it from the allBots array
     var index = allBots.indexOf(botWindow)
     if (index > -1) {
-      allBots.splice(index, 1);
+      allBots.splice(index, 1)
     }
   })
 
@@ -101,16 +101,28 @@ app.on('activate', function () {
 
 ipcMain.on('getAllStats', (event, args) => {
   var allStats = new Array()
+  var allReplies = new Array()
   var originalEvent = event
+
   ipcMain.on('replyStats', (event, arg) => {
-    allStats.push(arg)
-    if (allStats.length === allBots.length) {
+    allReplies.push(arg)
+    if (allReplies.length === allBots.length) {
       ipcMain.removeAllListeners(['replyStats'])
+
+      allReplies = allReplies.sort(function (a, b) {
+        return a.index - b.index
+      })
+
+      allStats = allReplies.map(function (object) {
+        return object.stats
+      })
+      
+      console.log(allBots.indexOf(allReplies[0]))
       originalEvent.sender.send('replyAllStats', allStats)
     }
   })
   allBots.forEach(function (item, index, array) {
-    item.webContents.send('getStats', args)
+    item.webContents.send('getStats', {'index': index, 'stats': args})
   })
 })
 

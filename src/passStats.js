@@ -8,9 +8,9 @@ play_btn.btnf.click();
 ipcRenderer.on('getStats', (event, args) => {
 	result = []
 
-	args.forEach(function (item, index, array) {
+	args['stats'].forEach(function (item, index, array) {
     	result.push(eval(item))
   	})
 
-	event.sender.send('replyStats', result)
+	event.sender.send('replyStats', {'index': args['index'], 'stats': result})
 });
