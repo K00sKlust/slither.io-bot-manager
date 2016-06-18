@@ -9,7 +9,7 @@ To run this application you'll need [Node.js](https://nodejs.org/en/download/) (
 
 ```bash
 # Clone this repository.
-$ git clone https://github.com/K00sKlust/slither.io-bot-manager.git
+git clone https://github.com/K00sKlust/slither.io-bot-manager.git
 # Go to the src folder you've cloned
 cd slither.io-bot-manager
 cd src
