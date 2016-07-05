@@ -2,17 +2,27 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
-window.checkVariables = ['botUrl', 'bot.isBotRunning', 'bot.scores']
+window.checkVariables = ['botUrl', 'bot.isBotRunning', 'bot.scores'];
 const {ipcRenderer} = require('electron');
+const {dialog} = require('electron').remote;
+
+$('#select-file').click(function () {
+    var path = dialog.showOpenDialog({
+        properties: ['openFile'], 
+        filters: [
+            {name: 'Javascript file', extensions: ['js']},
+            {name: 'All files', extensions: ['*']},
+        ]
+    })[0];
+    // That nasty escape character :/
+    var path = path.replace(/\\/g,'/');
+    submitCode('file://' + path);
+})
 
 $('#submit-code').click(function() {
-    // maybe linting the code?
-    args = {
-        codeUrl: $('#code-url').val()
-    };
-    // Create a new bot window in main.js
-    ipcRenderer.send('submit-code', args);
+    submitCode($('#code-url').val());
 })
+
 ipcRenderer.on('replyAllStats', (event, args) => {
     $('#table-bots tbody tr').remove();
     for (var i = 0; i < args.length; i++) {
@@ -25,6 +35,7 @@ ipcRenderer.on('replyAllStats', (event, args) => {
         }
     }
 });
+
 $('#update-stats').click(function() {
     ipcRenderer.send('getAllStats', window.checkVariables);
 })
@@ -32,6 +43,14 @@ $('#add-variable').click(function() {
     window.checkVariables.push($('#add-variable-text').val());
     updateTableHead();
 })
+
+function submitCode(codeUrl) {
+    args = {
+        codeUrl: codeUrl
+    };
+    // Create a new bot window in main.js
+    ipcRenderer.send('submit-code', args);
+}
 
 function updateTableHead() {
     $('#table-bots thead th').remove();

@@ -74,7 +74,6 @@ function createBotWindow (codeUrl) {
       allBots.splice(index, 1)
     }
   })
-
 }
 
 // This method will be called when Electron has finished
@@ -125,6 +124,6 @@ ipcMain.on('getAllStats', (event, args) => {
   })
 })
 
-ipcMain.on('submit-code', (event, arg) => {
-  newBotWindow = createBotWindow(arg.codeUrl)
+ipcMain.on('submit-code', (event, args) => {
+  newBotWindow = createBotWindow(args.codeUrl)
 })
